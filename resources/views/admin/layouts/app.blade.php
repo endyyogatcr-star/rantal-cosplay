@@ -13,6 +13,15 @@
             <!-- Sidebar -->
             <div class="col-md-3 col-lg-2 bg-dark text-white min-vh-100 p-3">
                 <h4 class="mb-4">Admin Panel</h4>
+                <hr class="text-light">
+<li class="nav-item">
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="nav-link text-white bg-transparent border-0 w-100 text-start">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</li>
                 <ul class="nav flex-column">
                     <li class="nav-item mb-2">
                         <a href="{{ route('admin.categories.index') }}" class="nav-link text-white"> Kategori</a>
