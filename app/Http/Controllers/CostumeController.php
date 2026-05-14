@@ -58,7 +58,6 @@ class CostumeController extends Controller
 
     public function update(Request $request, Costume $costume)
     {
-        // Validation sama seperti store
         $request->validate([
             'name' => 'required|string|max:255',
             'character' => 'required|string|max:255',
@@ -70,6 +69,7 @@ class CostumeController extends Controller
             'category_id' => 'required|exists:categories,category_id',
         ]);
 
+
         $data = $request->all();
 
         if ($request->hasFile('image')) {
@@ -78,14 +78,14 @@ class CostumeController extends Controller
 
         $costume->update($data);
 
-        return redirect()->route('costumes.index')
+        return redirect()->route('admin.costumes.index')
                          ->with('success', 'Costume berhasil diupdate.');
     }
 
     public function destroy(Costume $costume)
     {
         $costume->delete();
-        return redirect()->route('costumes.index')
+        return redirect()->route('admin.costumes.index')
                          ->with('success', 'Costume berhasil dihapus.');
     }
 }

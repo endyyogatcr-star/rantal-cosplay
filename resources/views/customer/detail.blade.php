@@ -52,11 +52,20 @@
                 </div>
 
                 <div class="d-grid gap-2">
-                    <button onclick="alert('Fitur Sewa akan segera ditambahkan!')" 
-                            class="btn btn-success btn-lg py-3">
-                        <i class="fas fa-shopping-cart"></i> Sewa Sekarang
-                    </button>
-                    <a href="{{ route('shop') }}" class="btn btn-outline-light">← Kembali ke Shop</a>
+                @auth
+                    <form action="{{ route('cart.add', $costume) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-lg py-3 w-100">
+                            <i class="fas fa-calendar-plus"></i> Sewa Costume Ini
+                        </button>
+                    </form>
+                @else
+                <a href="{{ route('login') }}" class="btn btn-success btn-lg py-3 w-100">
+                    <i class="fas fa-sign-in-alt"></i> Login untuk Sewa
+                </a>
+                @endauth
+
+                <a href="{{ route('shop') }}" class="btn btn-outline-light">← Kembali ke Shop</a>
                 </div>
             </div>
         </div>

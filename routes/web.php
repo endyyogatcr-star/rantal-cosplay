@@ -48,4 +48,19 @@ Route::prefix('admin')
 
         Route::resource('categories', CategoryController::class);
         Route::resource('costumes', CostumeController::class);
-    });
+        Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->only(['index', 'show']);
+});
+
+Route::middleware('auth')->group(function () {
+
+Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{costume}', [App\Http\Controllers\CartController::class, 'add'])->name('cart.add');
+    Route::delete('/cart/remove/{id}', [App\Http\Controllers\CartController::class, 'remove'])->name('cart.remove');
+
+    Route::get('/checkout', [App\Http\Controllers\CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout', [App\Http\Controllers\CheckoutController::class, 'store'])->name('checkout.store');
+    
+    // ROUTE INI YANG KURANG
+    Route::get('/order/confirm', [App\Http\Controllers\CheckoutController::class, 'confirm'])->name('order.confirm');
+    Route::post('/order/store', [App\Http\Controllers\CheckoutController::class, 'storeOrder'])->name('order.store');
+});
